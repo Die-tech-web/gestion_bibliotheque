@@ -30,9 +30,7 @@ class Bibliotheque {
         }
     }
 
-    public void supprimerLivre(Livre livre) {
-        livres.remove(livre);
-    }
+   
 
     public Livre rechercherLivre(String critere) {
         for (Livre livre : livres) {
@@ -76,123 +74,32 @@ class Bibliotheque {
         }
         return null; // Retourne null si aucun utilisateur correspondant n'est trouvé
     }
-}
-
-// Classe Emprunt pour représenter un emprunt de livre
-class Emprunt {
-    private Livre livreEmprunte;
-    private Utilisateur emprunteur;
-
-    // Constructeur
-    public Emprunt(Livre livreEmprunte, Utilisateur emprunteur) {
-        this.livreEmprunte = livreEmprunte;
-        this.emprunteur = emprunteur;
+    //suppp
+    /**
+     * @param ISBN
+     */
+    public void supprimerLivre(String ISBN) {
+        Livre livreASupprimer = null;
+        for (Livre livre : livres) {
+            if (livre.getISBN().equalsIgnoreCase(ISBN)) {
+                livreASupprimer = livre;
+                break;
+            }
+        }
+        if (livreASupprimer != null) {
+            livres.remove(livreASupprimer);
+            System.out.println("Le livre \"" + livreASupprimer.getTitre() + "\" a été supprimé avec succès.");
+        } else {
+            System.out.println("Aucun livre avec l'ISBN \"" + ISBN + "\" n'a été trouvé.");
+        }
     }
 
-    // Getters et setters
-    public Livre getLivreEmprunte() {
-        return livreEmprunte;
+    ///liste utilisateur
+    public ArrayList<Utilisateur> getUtilisateurs() {
+        return utilisateurs;
     }
-
-    public void setLivreEmprunte(Livre livreEmprunte) {
-        this.livreEmprunte = livreEmprunte;
-    }
-
-    public Utilisateur getEmprunteur() {
-        return emprunteur;
-    }
-
-    public void setEmprunteur(Utilisateur emprunteur) {
-        this.emprunteur = emprunteur;
-    }
-}
-
-////suppression d'un livre
+    
 
 
-////suppression d'un livre
-// Classe Livre pour représenter un livre
-class Livre {
-    private String titre;
-    private String auteur;
-    private int anneePublication;
-    private String ISBN;
-
-    // Constructeur
-    public Livre(String titre, String auteur, int anneePublication, String ISBN) {
-        this.titre = titre;
-        this.auteur = auteur;
-        this.anneePublication = anneePublication;
-        this.ISBN = ISBN;
-    }
-
-    // Getters et setters
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public String getAuteur() {
-        return auteur;
-    }
-
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
-    }
-
-    public int getAnneePublication() {
-        return anneePublication;
-    }
-
-    public void setAnneePublication(int anneePublication) {
-        this.anneePublication = anneePublication;
-    }
-
-    public String getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    @Override
-    public String toString() {
-        return "Titre: " + titre + "\n" +
-               "Auteur: " + auteur + "\n" +
-               "Année de publication: " + anneePublication + "\n" +
-               "ISBN: " + ISBN;
-    }
-}
-
-// Classe Utilisateur pour représenter un utilisateur de la bibliothèque
-class Utilisateur {
-    private String nom;
-    private int numeroIdentification;
-
-    // Constructeur
-    public Utilisateur(String nom, int numeroIdentification) {
-        this.nom = nom;
-        this.numeroIdentification = numeroIdentification;
-    }
-
-    // Getters et setters
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public int getNumeroIdentification() {
-        return numeroIdentification;
-    }
-
-    public void setNumeroIdentification(int numeroIdentification) {
-        this.numeroIdentification = numeroIdentification;
-    }
+    
 }

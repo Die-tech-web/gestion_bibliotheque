@@ -16,9 +16,19 @@ public class InterfaceUtilisateur {
         System.out.println("3. Emprunter un livre");
         System.out.println("4. Retourner un livre");
         System.out.println("5. Ajouter un utilisateur");
-        System.out.println("6. Quitter");
+        System.out.println("6. Supprimer un livre");
+        System.out.println("7. Afficher la liste des utilisateurs");
+        System.out.println("8. Modifier un livre");
+        System.out.println("9. Quitter");
     }
-
+    ////liste utilisateur
+    public void afficherListeUtilisateurs() {
+        System.out.println("Liste des utilisateurs :");
+        for (Utilisateur utilisateur : bibliotheque.getUtilisateurs()) {
+            System.out.println("Nom : " + utilisateur.getNom() + ", ID : " + utilisateur.getNumeroIdentification());
+        }
+    }
+    ////liste utiliateur
     public void executer() {
         int choix;
         do {
@@ -26,7 +36,7 @@ public class InterfaceUtilisateur {
             System.out.print("Veuillez sélectionner une option : ");
             choix = scanner.nextInt();
             scanner.nextLine(); // Pour consommer la nouvelle ligne après la saisie de l'entier
-
+    
             switch (choix) {
                 case 1:
                     ajouterLivre();
@@ -44,14 +54,22 @@ public class InterfaceUtilisateur {
                     ajouterUtilisateur();
                     break;
                 case 6:
+                    supprimerLivre();
+                    break;
+                case 7:
+                    afficherListeUtilisateurs();
+                    break;
+                case 8:
+                    modifierLivre();
+                    break;
+                case 9:
                     System.out.println("Merci d'avoir utilisé le système de gestion de bibliothèque !");
                     break;
                 default:
                     System.out.println("Option invalide, veuillez réessayer.");
             }
-        } while (choix != 6);
+        } while (choix != 9);
     }
-
     public void ajouterLivre() {
         System.out.println("Ajout d'un nouveau livre :");
         System.out.print("Titre : ");
@@ -133,7 +151,47 @@ public class InterfaceUtilisateur {
 
 ///supp
 
+public void supprimerLivre() {
+    System.out.println("Suppression d'un livre :");
+    System.out.print("Entrez l'ISBN du livre à supprimer : ");
+    String ISBN = scanner.nextLine();
+
+    bibliotheque.supprimerLivre(ISBN);
+}
 ////sup
+//modifier
+public void modifierLivre() {
+    System.out.println("Modification d'un livre :");
+    System.out.print("Entrez l'ISBN du livre à modifier : ");
+    String ISBN = scanner.nextLine();
+
+    Livre livre = bibliotheque.rechercherLivre(ISBN);
+    if (livre == null) {
+        System.out.println("Livre non trouvé.");
+        return;
+    }
+
+    System.out.println("Livre actuel :");
+    System.out.println(livre.toString());
+
+    System.out.print("Nouveau titre : ");
+    String nouveauTitre = scanner.nextLine();
+    System.out.print("Nouvel auteur : ");
+    String nouvelAuteur = scanner.nextLine();
+    System.out.print("Nouvelle année de publication : ");
+    int nouvelleAnneePublication = scanner.nextInt();
+    scanner.nextLine(); // Consommer la nouvelle ligne
+
+    livre.setTitre(nouveauTitre);
+    livre.setAuteur(nouvelAuteur);
+    livre.setAnneePublication(nouvelleAnneePublication);
+
+    bibliotheque.modifierLivre(livre);
+    System.out.println("Le livre a été modifié avec succès.");
+}
+//modifier
+
+
 
     public static void main(String[] args) {
         InterfaceUtilisateur interfaceUtilisateur = new InterfaceUtilisateur();
